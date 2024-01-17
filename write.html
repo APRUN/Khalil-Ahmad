@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js" integrity="sha512-r22gChDnGvBylk90+2e/ycr3RVrDi8DIOkIGNhJlKfuyQM4tIRAI062MaV8sfjQKYVGjOBaZBOA87z+IhZE9DA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+
+<section class="contact" id="contact">
+    <h2 class="heading">Contact <span>Me!</span></h2>
+
+    <form id="contactForm">
+        <div class="input-box">
+            <input type="text" placeholder="Full Name" id="fullName">
+            <input type="email" placeholder="Email Address" id="email">
+        </div>
+        <div class="input-box">
+            <input type="number" placeholder="Mobile Number" id="mobileNumber">
+            <input type="text" placeholder="Email Subject" id="emailSubject">
+        </div>
+        <textarea id="message" cols="30" rows="10" placeholder="Your Message"></textarea>
+        <input type="submit" value="Send Message" class="btn">
+    </form>
+</section>
+
+<script>
+    document.getElementById('contactForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        // Get form data
+        var fullName = document.getElementById('fullName').value;
+        var email = document.getElementById('email').value;
+        var mobileNumber = document.getElementById('mobileNumber').value;
+        var emailSubject = document.getElementById('emailSubject').value;
+        var message = document.getElementById('message').value;
+
+        // Create a data array
+        var data = [
+            [fullName, email, mobileNumber, emailSubject, message]
+        ];
+
+        // Create a worksheet
+        var ws = XLSX.utils.aoa_to_sheet(data);
+
+        // Create a workbook
+        var wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "ContactForm");
+
+        // Save the workbook to a file in the same directory as the HTML file
+        var fileName = 'ContactForm.csv';
+        XLSX.writeFile(wb, fileName);
+        
+        // Optionally, you can submit the form to the original action URL
+        // event.target.submit();
+    });
+</script>
+
+</body>
+</html>
