@@ -52,6 +52,18 @@ body {
     z-index: 100;
     transition: .5s;
 }
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 2rem 7%;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    z-index: 100;
+    transition: .5s;
+}
 
 .header.sticky {
     background: var(--bg-color);
@@ -69,6 +81,13 @@ body {
     position: relative;
     font-size: 1.7rem;
     color: var(--white-color);
+    font-weight: 500;
+    margin-right: 3.5rem;
+}
+.navbar2 a {
+    position: relative;
+    font-size: 1.7rem;
+    color: var(--text-color);
     font-weight: 500;
     margin-right: 3.5rem;
 }
@@ -98,7 +117,7 @@ body {
 
 #darkMode-icon {
     font-size: 2.4rem;
-    color: var(--white-color);
+    color: var(--text-color);
     cursor: pointer;
 }
 
@@ -1096,6 +1115,11 @@ img {
     }
 }
 
+
+
+
+
+/* Index2.html CSS */
 
 
 
