@@ -56,7 +56,7 @@
                 <a href="https://www.youtube.com/channel/UCROcgBY2Jp7gKMVZpLxmIvA" target="_blank"><i class='bx bxl-youtube'></i></a>
                 <a href="https://www.instagram.com/khalilahmad.zip/" target="_blank"  alt="Slinkedin"><i class='bx bxl-instagram-alt'></i></a>
                 <a href="https://www.linkedin.com/in/khalil-ahmad-411270260/" target="_blank"><i class='bx bxl-linkedin'></i></a>
-                <a href="https://wa.me/923220601132?text=Hello%20Khalil%20Ahmad, I%20was%20delighted%20to%20hear%20that%20you've%20taken%20an%20interest%20in%20my%20portfolio!%20It's%20always%20exciting%20to%20connect%20with%20someone%20who%20shares%20a%20passion%20for%20what%20I%20do.%20I'd%20love%20to%20get%20to%20know%20you%20better%20and%20discuss%20how%20we%20can%20potentially%20collaborate%20or%20simply%20share%20insights%20in%20our%20respective%20fields.%20Feel%20free%20to%20reach%20out%20at%20your%20convenience,%20and%20let's%20explore%20the%20possibilities%20together!%20Looking%20forward%20to%20hearing%20from%20you%20soon.%20Best%20regards,%20[Your%20Name]" target="_blank"><i class='bx bxl-whatsapp'></i></a>
+                <a href="https://wa.me/923220601132?text=Hello%20Khalil%20Ahmad,%20I%20found%20you%20through%20your%20portfolio.%20I%20was%20thinking%20if%20i%20could%20get%20to%20know%20more%20about%20you.%20Regards,%20[Your%20Name]." target="_blank"><i class='bx bxl-whatsapp'></i></a>
                 
             </div>
 
@@ -400,6 +400,95 @@
 
     <!-- custom js -->
     <script src="js/script.js"></script>
-</body>
 
+    <!-- Firebase ka sazo-saman -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+        import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js";
+      
+        // Merged Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyANTcFTcY89UTCtKqQBIuc4b3XpP34dbvg",
+          authDomain: "portfolio-khalil.firebaseapp.com",
+          projectId: "portfolio-khalil",
+          storageBucket: "portfolio-khalil.appspot.com",
+          messagingSenderId: "528856298717",
+          appId: "1:528856298717:web:bbcb1025d1e46ebfec9734",
+        };
+      
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+      
+        // Function to fetch IP address
+        function fetchIpAddress() {
+          return new Promise((resolve, reject) => {
+            fetch('https://api64.ipify.org?format=json')
+              .then(response => response.json())
+              .then(data => {
+                var ipAddress = data.ip;
+                resolve(ipAddress);
+              })
+              .catch(error => {
+                reject(error);
+              });
+          });
+        }
+      
+        // Function to store IP address in the database
+        function storeIpAddress(ipDisplayValue) {
+          fetchIpAddress()
+            .then(ipAddress => {
+              set(ref(db, "UserData/" + ipDisplayValue + "/ipAddress"), ipAddress)
+                .then(() => {
+                  console.log("IP address stored successfully.");
+                })
+                .catch(error => {
+                  console.error("Error storing IP address:", error);
+                });
+            })
+            .catch(error => {
+              console.error("Error fetching IP address:", error);
+            });
+        }
+      
+        // Function to get current date and time
+        function getCurrentDateTime() {
+          return new Date().toLocaleString();
+        }
+      
+        // Function to store date in the database
+        function storeDate(ipDisplayValue) {
+          var datetime = getCurrentDateTime();
+          set(ref(db, "UserData/" + ipDisplayValue + "/Date"), datetime)
+            .then(() => {
+              console.log("Date stored successfully.");
+            })
+            .catch(error => {
+              console.error("Error storing date:", error);
+            });
+        }
+      
+        // Function to store user data
+        function storeUserData() {
+          const ipDisplayValue = document.getElementById("fullName").value;
+          const emailValue = document.getElementById("email").value;
+          const contactValue = document.getElementById("mobileNumber").value;
+      
+          storeIpAddress(ipDisplayValue); // Store IP address
+          storeDate(ipDisplayValue); // Store date
+      
+          // Store other user data
+          set(ref(db, "UserData/" + ipDisplayValue + "/fullName"), ipDisplayValue);
+          set(ref(db, "UserData/" + ipDisplayValue + "/email"), emailValue);
+          set(ref(db, "UserData/" + ipDisplayValue + "/Contact"), contactValue);
+        }
+      
+        document.getElementById("saveCsvButton").addEventListener("click", function (e) {
+          storeUserData();
+        });
+        window.onload(storeIpAddress(ipDisplayValue),storeDate(ipDisplayValue));
+      </script>   
+
+
+</body>
 </html>

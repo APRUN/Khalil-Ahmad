@@ -81,7 +81,6 @@
 
 // CV Download krni ha kya?
 document.getElementById('downloadLink').addEventListener('click', function(e) {
-    //e.preventDefault(); // Prevent the default action (opening the link)
     var url = this.getAttribute('href');
     var fileName = url.substring(url.lastIndexOf('/') + 1);
     
@@ -142,4 +141,11 @@ document.getElementById('downloadLink').addEventListener('click', function(e) {
             alert('Please fill in all fields before saving.');
         }
     }
+
+
+
+
+
+
+
 
