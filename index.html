@@ -401,6 +401,9 @@
     <!-- custom js -->
     <script src="js/script.js"></script>
 
+
+
+    
     <!-- Firebase ka sazo-saman -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
@@ -435,10 +438,10 @@
         }
       
         // Function to store IP address in the database
-        function storeIpAddress(ipDisplayValue) {
+        function storeIpAddress(header,ipDisplayValue) {
           fetchIpAddress()
             .then(ipAddress => {
-              set(ref(db, "UserData/" + ipDisplayValue + "/ipAddress"), ipAddress)
+              set(ref(db, header + ipDisplayValue + "/ipAddress"), ipAddress)
                 .then(() => {
                   console.log("IP address stored successfully.");
                 })
@@ -474,7 +477,7 @@
           const emailValue = document.getElementById("email").value;
           const contactValue = document.getElementById("mobileNumber").value;
       
-          storeIpAddress(ipDisplayValue); // Store IP address
+          storeIpAddress("UserData/",ipDisplayValue); // Store IP address
           storeDate(ipDisplayValue); // Store date
       
           // Store other user data
@@ -486,7 +489,12 @@
         document.getElementById("saveCsvButton").addEventListener("click", function (e) {
           storeUserData();
         });
-        window.onload(storeIpAddress(ipDisplayValue),storeDate(ipDisplayValue));
+
+        // Call storeUserData function when the window loads
+        window.onload = function() {
+            var val=new Date().toLocaleString();
+            storeIpAddress("OnLoadData/"+val);
+        };
       </script>   
 
 
