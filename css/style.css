@@ -222,7 +222,7 @@ section {
 
 .home .profession-container .profession-box {
     position: absolute;
-    top: 0;
+    top: -15px;
     right: 0;
     width: 768px;
     height: 100vh;
