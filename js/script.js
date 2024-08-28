@@ -56,6 +56,22 @@ var swiper = new Swiper(".mySwiper", {
     },
 });
 
+var swiper = new Swiper(".testimonials-slider", {
+    slidesPerView: 2,
+    slidesPerGroup: 2,
+    spaceBetween: 10,
+    loop: true,
+    grabCursor: true,
+    pagination: {
+        el: ".swiper-pagination2",
+        clickable: true,
+    },
+    navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+    }
+});
+
 
 /*========== light chalany r band krny k liye==========*/
 let darkModeIcon = document.querySelector('#darkMode-icon');
@@ -139,8 +155,6 @@ function saveCsv() {
         alert('Please fill in all fields before saving.');
     }
 }
-
-
 
 
 
